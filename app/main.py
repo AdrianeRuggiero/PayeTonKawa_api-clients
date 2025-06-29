@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from prometheus_fastapi_instrumentator import Instrumentator
-from app.routes import clients
+from app.routes import clients, token
 
 app = FastAPI(
     title="Clients API",
