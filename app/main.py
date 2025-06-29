@@ -18,3 +18,4 @@ def root():
 
 # Inclusions des routes clients
 app.include_router(clients.router, prefix="/clients", tags=["clients"])
+app.include_router(token.router)
