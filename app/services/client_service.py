@@ -7,7 +7,7 @@ from bson import ObjectId
 def create_client(client: ClientModel) -> ClientModel:
     client_dict = client.model_dump(by_alias=True, exclude_unset=True)
     result = clients_collection.insert_one(client_dict)
-    client_dict["_id"] = str(result.inserted_id)  # ✅ Corrigé : convertir ObjectId → str
+    client_dict["_id"] = str(result.inserted_id)  # Corrigé : convertir ObjectId → str
     return ClientModel(**client_dict)
 
 # Obtenir un client par ID
@@ -16,7 +16,7 @@ def get_client(client_id: str) -> Optional[ClientModel]:
         return None
     client_data = clients_collection.find_one({"_id": ObjectId(client_id)})
     if client_data:
-        client_data["_id"] = str(client_data["_id"])  # ✅ Corrigé ici aussi
+        client_data["_id"] = str(client_data["_id"])  # Corrigé ici aussi
         return ClientModel(**client_data)
     return None
 
@@ -24,7 +24,7 @@ def get_client(client_id: str) -> Optional[ClientModel]:
 def list_clients() -> List[ClientModel]:
     clients = []
     for doc in clients_collection.find():
-        doc["_id"] = str(doc["_id"])  # ✅ Corrigé pour chaque document
+        doc["_id"] = str(doc["_id"])  # Corrigé pour chaque document
         clients.append(ClientModel(**doc))
     return clients
 
@@ -39,7 +39,7 @@ def update_client(client_id: str, client: ClientModel) -> Optional[ClientModel]:
         return_document=True
     )
     if updated:
-        updated["_id"] = str(updated["_id"])  # ✅ Corrigé
+        updated["_id"] = str(updated["_id"])  # Corrigé
         return ClientModel(**updated)
     return None
 
